@@ -48,7 +48,7 @@ class WallpaperRepository {
     if (response.statusCode == 200) {
       return Photos.fromJsonMap(response.data);
     } else {
-      throw Exception('Photo Repository searchPhoto Error');
+      throw Exception('Photo Repository getPhoto Error');
     }
   }
 }
