@@ -10,6 +10,7 @@ import 'package:flutter_share/flutter_share.dart';
 import 'package:flutter_share_me/flutter_share_me.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:walleye/src/data/model/photoEntity/photos.dart';
+import 'package:walleye/src/ui/wallpaper_preview.dart';
 
 class WallpaperTile extends StatelessWidget {
   final Photos _photo;
@@ -19,47 +20,60 @@ class WallpaperTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(16),
-      child: Stack(
-        fit: StackFit.expand,
-        children: [
-          CachedNetworkImage(
-            cacheManager: _cacheManager,
-            imageUrl: _photo.src.portrait,
-            fit: BoxFit.cover,
-            progressIndicatorBuilder: (context, _, __) => Center(
-              child: CircularProgressIndicator(),
-            ),
-          ),
-          Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  colors: [Colors.black, Colors.transparent],
-                  begin: Alignment.bottomCenter,
-                  end: Alignment.topCenter),
-            ),
-          ),
-          Positioned(
-            left: 10,
-            bottom: 10,
-            child: Text(
-              _photo.photographer,
-              style: TextStyle(color: Colors.white, fontSize: 20),
-            ),
-          ),
-          Positioned(
-            right: 10,
-            top: 10,
-            child: IconButton(
-              icon: Icon(
-                Icons.share,
-                color: Colors.white,
+    return GestureDetector(
+      onTap: () => Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (BuildContext context) {
+            return WallpaperPreview(_photo, _cacheManager);
+          },
+        ),
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(16),
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            Hero(
+              tag: _photo.src.portrait,
+              child: CachedNetworkImage(
+                cacheManager: _cacheManager,
+                imageUrl: _photo.src.portrait,
+                fit: BoxFit.cover,
+                progressIndicatorBuilder: (context, _, __) => Center(
+                  child: CircularProgressIndicator(),
+                ),
               ),
-              onPressed: () => _showShareOptions(context),
             ),
-          )
-        ],
+            Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    colors: [Colors.black, Colors.transparent],
+                    begin: Alignment.bottomCenter,
+                    end: Alignment.topCenter),
+              ),
+            ),
+            Positioned(
+              left: 10,
+              bottom: 10,
+              child: Text(
+                _photo.photographer,
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+            ),
+            Positioned(
+              right: 10,
+              top: 10,
+              child: IconButton(
+                icon: Icon(
+                  Icons.share,
+                  color: Colors.white,
+                ),
+                onPressed: () => _showShareOptions(context),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
