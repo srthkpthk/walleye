@@ -8,6 +8,11 @@ class Src {
   String landscape;
   String tiny;
 
+  @override
+  String toString() {
+    return 'Src{original: $original, large2x: $large2x, large: $large, medium: $medium, small: $small, portrait: $portrait, landscape: $landscape, tiny: $tiny}';
+  }
+
   Src.fromJsonMap(Map<String, dynamic> map)
       : original = map["original"],
         large2x = map["large2x"],

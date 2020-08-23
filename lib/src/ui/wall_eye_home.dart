@@ -8,12 +8,24 @@ import 'package:walleye/src/data/blocs/curatedWallpaperBLoc/curated_wallpapers_s
 import 'package:walleye/src/data/blocs/curatedWallpaperBLoc/curated_wallpapers_event.dart';
 import 'package:walleye/src/ui/wallpaper_tile.dart';
 
-class WallEyeHome extends StatelessWidget {
-  final ScrollController _controller = ScrollController();
+class WallEyeHome extends StatefulWidget {
+  @override
+  _WallEyeHomeState createState() => _WallEyeHomeState();
+}
+
+class _WallEyeHomeState extends State<WallEyeHome> {
+  ScrollController _controller;
+  bool shouldShowFAB = false;
+
+  @override
+  void initState() {
+    _controller = ScrollController();
+    _controller.addListener(() => _scrollListener(context));
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    _controller.addListener(() => _scrollListener(context));
     var size = MediaQuery.of(context).size;
     final double itemHeight = (size.height) / 2;
     final double itemWidth = (size.width / 2);
@@ -67,6 +79,16 @@ class WallEyeHome extends StatelessWidget {
           }
         },
       ),
+      floatingActionButton: shouldShowFAB
+          ? FloatingActionButton(
+              child: Icon(Icons.arrow_upward),
+              onPressed: () => _controller.animateTo(
+                0,
+                duration: Duration(seconds: 1),
+                curve: Curves.easeIn,
+              ),
+            )
+          : null,
     );
   }
 
@@ -82,6 +104,25 @@ class WallEyeHome extends StatelessWidget {
       context.bloc<CuratedWallpapersBloc>().add(
             FetchCuratedWallpapers(currentPageNUmber),
           );
+    }
+    if (_controller.offset > 1000) {
+      if (!shouldShowFAB) {
+//        log('show FAB');
+        setState(
+          () {
+            shouldShowFAB = true;
+          },
+        );
+      }
+    } else {
+      if (shouldShowFAB) {
+//        log(' !show FAB');
+        setState(
+          () {
+            shouldShowFAB = false;
+          },
+        );
+      }
     }
   }
 }
