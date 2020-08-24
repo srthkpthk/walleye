@@ -2,8 +2,10 @@ import 'dart:developer';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_permission_validator/easy_permission_validator.dart';
+import 'package:ext_storage/ext_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:walleye/src/data/model/photoEntity/photos.dart';
 import 'package:wallpaper_manager/wallpaper_manager.dart';
@@ -208,6 +210,18 @@ class _WallpaperPreviewState extends State<WallpaperPreview> {
 
   Future<void> _downloadWallpaper(String photoUrl) async {
     await _permissionRequest();
+    final taskId = await FlutterDownloader.enqueue(
+      url: photoUrl,
+      savedDir: await ExtStorage.getExternalStoragePublicDirectory(
+          ExtStorage.DIRECTORY_DOWNLOADS),
+      showNotification: true,
+      openFileFromNotification: true,
+    );
+    _scaffoldKey.currentState.showSnackBar(
+      SnackBar(
+        content: Text(taskId),
+      ),
+    );
   }
 
   _permissionRequest() async {
