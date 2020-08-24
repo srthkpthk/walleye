@@ -9,6 +9,7 @@ import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_share/flutter_share.dart';
 import 'package:flutter_share_me/flutter_share_me.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:walleye/src/data/model/photoEntity/photos.dart';
 import 'package:walleye/src/ui/wallpaper_preview.dart';
 
@@ -50,15 +51,20 @@ class WallpaperTile extends StatelessWidget {
                 gradient: LinearGradient(
                     colors: [Colors.black, Colors.transparent],
                     begin: Alignment.bottomCenter,
+                    stops: [.01,.09],
                     end: Alignment.topCenter),
               ),
             ),
             Positioned(
-              left: 10,
-              bottom: 10,
+              left: 15,
+              bottom: 15,
               child: Text(
                 _photo.photographer,
-                style: TextStyle(color: Colors.white, fontSize: 20),
+                style: GoogleFonts.montserrat(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
               ),
             ),
             Positioned(

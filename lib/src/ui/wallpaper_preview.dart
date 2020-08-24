@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_permission_validator/easy_permission_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:photo_view/photo_view.dart';
@@ -52,6 +53,7 @@ class _WallpaperPreviewState extends State<WallpaperPreview> {
       floatingActionButton: FloatingActionButton.extended(
         isExtended: shouldShowFABLoading ? false : true,
         icon: shouldShowFABLoading ? null : Icon(Icons.done),
+        backgroundColor: Theme.of(context).accentColor,
         onPressed: () {
           _scaffoldKey.currentState.showBottomSheet(
             (context) => Padding(
@@ -81,6 +83,14 @@ class _WallpaperPreviewState extends State<WallpaperPreview> {
                     onTap: () {
                       Navigator.pop(context);
                       _setWallpaper(1);
+                    },
+                  ),
+                  ListTile(
+                    title: Text('Download'),
+                    leading: Icon(Icons.file_download),
+                    onTap: () {
+                      Navigator.pop(context);
+                      _downLoadWallpaperBottomSheet(context);
                     },
                   ),
                 ],
@@ -150,5 +160,61 @@ class _WallpaperPreviewState extends State<WallpaperPreview> {
         shouldShowFABLoading = false;
       },
     );
+  }
+
+  void _downLoadWallpaperBottomSheet(BuildContext context) {
+    _scaffoldKey.currentState.showBottomSheet(
+      (context) => Padding(
+        padding: const EdgeInsets.all(12),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListTile(
+              title: Text('Original'),
+              leading: Icon(Icons.crop_original),
+              onTap: () {
+                Navigator.pop(context);
+                _downloadWallpaper(widget.photo.src.original);
+              },
+            ),
+            ListTile(
+              title: Text('Portrait'),
+              leading: Icon(Icons.portrait),
+              onTap: () {
+                Navigator.pop(context);
+                _downloadWallpaper(widget.photo.src.portrait);
+              },
+            ),
+            ListTile(
+              title: Text('Large'),
+              leading: Icon(Icons.photo_size_select_large),
+              onTap: () {
+                Navigator.pop(context);
+                _downloadWallpaper(widget.photo.src.large2x);
+              },
+            ),
+          ],
+        ),
+      ),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20),
+        ),
+      ),
+      elevation: 6,
+    );
+  }
+
+  Future<void> _downloadWallpaper(String photoUrl) async {
+    await _permissionRequest();
+  }
+
+  _permissionRequest() async {
+    final permissionValidator = EasyPermissionValidator(
+      context: context,
+      appName: 'Easy Permission Validator',
+    );
+    var result = await permissionValidator.storage();
   }
 }
