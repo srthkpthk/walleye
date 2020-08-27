@@ -51,5 +51,4 @@ class WallpaperRepository {
       throw Exception('Photo Repository getPhoto Error');
     }
   }
-
 }

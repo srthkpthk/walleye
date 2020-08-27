@@ -27,13 +27,6 @@ class _WallpaperPreviewState extends State<WallpaperPreview> {
 
   @override
   Widget build(BuildContext context) {
-//    print(widget.photo.src.toString());
-    d.addIgnorableListener(() {
-      log(d.position.dx.toString());
-    });
-//    var pix = MediaQuery.of(context).devicePixelRatio;
-//    print(MediaQuery.of(context).size.height / pix);
-//    print(MediaQuery.of(context).size.width / pix);
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
@@ -125,24 +118,7 @@ class _WallpaperPreviewState extends State<WallpaperPreview> {
         shouldShowFABLoading = true;
       },
     );
-
-    _scaffoldKey.currentState.showSnackBar(
-      SnackBar(
-        content: Text('Patience is the Key'),
-        duration: Duration(milliseconds: 500),
-      ),
-    );
-//    var x = await WallpaperManager.setWallpaperFromFile(
-//      await widget.cacheManager
-//          .getSingleFile(widget.photo.src.large2x)
-//          .then((value) => value.path),
-//      screen,
-//    );
     var pix = MediaQuery.of(context).devicePixelRatio;
-    print(MediaQuery.of(context).size.topCenter(Offset(0, 0)) * pix);
-    print(MediaQuery.of(context).size.height * pix);
-    print(MediaQuery.of(context).size.width * pix);
-
     var x = await WallpaperManager.setWallpaperFromFileWithCrop(
         await widget.cacheManager
             .getSingleFile(widget.photo.src.large2x)
@@ -150,11 +126,11 @@ class _WallpaperPreviewState extends State<WallpaperPreview> {
         screen,
         d.position.dx.floor().abs().toInt(),
         0,
-        widget.photo.width,
-        widget.photo.height);
+        (MediaQuery.of(context).size.height * pix).toInt(),
+        (MediaQuery.of(context).size.height * pix).toInt());
     _scaffoldKey.currentState.showSnackBar(
       SnackBar(
-        content: Text(''),
+        content: Text(x),
       ),
     );
     setState(
@@ -224,11 +200,8 @@ class _WallpaperPreviewState extends State<WallpaperPreview> {
     );
   }
 
-  _permissionRequest() async {
-    final permissionValidator = EasyPermissionValidator(
-      context: context,
-      appName: 'Easy Permission Validator',
-    );
-    var result = await permissionValidator.storage();
-  }
+  _permissionRequest() async => EasyPermissionValidator(
+        context: context,
+        appName: 'WallEye',
+      );
 }

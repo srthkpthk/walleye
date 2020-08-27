@@ -51,7 +51,7 @@ class WallpaperTile extends StatelessWidget {
                 gradient: LinearGradient(
                     colors: [Colors.black, Colors.transparent],
                     begin: Alignment.bottomCenter,
-                    stops: [.1,.008],
+                    stops: [0,.3],
                     end: Alignment.topCenter),
               ),
             ),
