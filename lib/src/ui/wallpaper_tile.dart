@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
@@ -51,7 +50,7 @@ class WallpaperTile extends StatelessWidget {
                 gradient: LinearGradient(
                     colors: [Colors.black, Colors.transparent],
                     begin: Alignment.bottomCenter,
-                    stops: [0,.3],
+                    stops: [0, .3],
                     end: Alignment.topCenter),
               ),
             ),

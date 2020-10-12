@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:walleye/src/data/blocs/curatedWallpaperBLoc/curated_wallpapers_bloc.dart';
-import 'package:walleye/src/data/blocs/curatedWallpaperBLoc/curated_wallpapers_state.dart';
 import 'package:walleye/src/data/blocs/curatedWallpaperBLoc/curated_wallpapers_event.dart';
+import 'package:walleye/src/data/blocs/curatedWallpaperBLoc/curated_wallpapers_state.dart';
 import 'package:walleye/src/ui/wallpaper_tile.dart';
 
 class WallEyeHome extends StatefulWidget {
@@ -107,7 +107,6 @@ class _WallEyeHomeState extends State<WallEyeHome> {
     }
     if (_controller.offset > 1000) {
       if (!shouldShowFAB) {
-//        log('show FAB');
         setState(
           () {
             shouldShowFAB = true;
@@ -116,7 +115,6 @@ class _WallEyeHomeState extends State<WallEyeHome> {
       }
     } else {
       if (shouldShowFAB) {
-//        log(' !show FAB');
         setState(
           () {
             shouldShowFAB = false;
