@@ -30,7 +30,7 @@ class App extends StatelessWidget {
           create: (BuildContext context) => CuratedWallpapersBloc(
             context.repository<WallpaperRepository>(),
           )..add(FetchCuratedWallpapers(0)),
-          child: WallEyeHome(),
+          child: CuratedWallpaperScreen(),
         ),
       ),
     );

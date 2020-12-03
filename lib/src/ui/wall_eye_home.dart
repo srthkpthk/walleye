@@ -8,12 +8,12 @@ import 'package:walleye/src/data/blocs/curatedWallpaperBLoc/curated_wallpapers_e
 import 'package:walleye/src/data/blocs/curatedWallpaperBLoc/curated_wallpapers_state.dart';
 import 'package:walleye/src/ui/wallpaper_tile.dart';
 
-class WallEyeHome extends StatefulWidget {
+class CuratedWallpaperScreen extends StatefulWidget {
   @override
-  _WallEyeHomeState createState() => _WallEyeHomeState();
+  _CuratedWallpaperScreenState createState() => _CuratedWallpaperScreenState();
 }
 
-class _WallEyeHomeState extends State<WallEyeHome> {
+class _CuratedWallpaperScreenState extends State<CuratedWallpaperScreen> {
   ScrollController _controller;
   bool shouldShowFAB = false;
 
