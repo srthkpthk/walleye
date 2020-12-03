@@ -36,7 +36,7 @@ class _WallpaperPreviewState extends State<WallpaperPreview> {
         tag: widget.photo.src.portrait,
         child: PhotoView(
           controller: d,
-          basePosition: Alignment.topLeft,
+          basePosition: Alignment.center,
           minScale: PhotoViewComputedScale.covered,
           maxScale: PhotoViewComputedScale.covered * 2,
           loadingBuilder: (_, __) => Center(
