@@ -4,7 +4,7 @@ import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:walleye/src/data/blocs/curatedWallpaperBLoc/curated_wallpapers_bloc.dart';
 import 'package:walleye/src/data/blocs/curatedWallpaperBLoc/curated_wallpapers_event.dart';
 import 'package:walleye/src/data/repository/WallpaperRepository.dart';
-import 'package:walleye/src/ui/wall_eye_home.dart';
+import 'package:walleye/src/ui/curated_wallpaer_home.dart';
 import 'package:walleye/src/util/theme.dart';
 
 Future<void> main() async {
