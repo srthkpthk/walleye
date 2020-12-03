@@ -128,14 +128,8 @@ class _WallpaperPreviewState extends State<WallpaperPreview> {
         screen,
         d.position.dx.floor().abs().toInt(),
         0,
-        (MediaQuery
-            .of(context)
-            .size
-            .height * pix).toInt(),
-        (MediaQuery
-            .of(context)
-            .size
-            .height * pix).toInt());
+        (MediaQuery.of(context).size.height * pix).toInt(),
+        (MediaQuery.of(context).size.height * pix).toInt());
     _scaffoldKey.currentState.showSnackBar(
       SnackBar(
         content: Text(x),
@@ -146,7 +140,7 @@ class _WallpaperPreviewState extends State<WallpaperPreview> {
         Duration(
           seconds: 1,
         ),
-            () => _androidAppRetain.invokeMethod("sendToHome"),
+        () => _androidAppRetain.invokeMethod("sendToHome"),
       );
     }
     setState(
