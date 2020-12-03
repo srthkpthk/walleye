@@ -1,9 +1,10 @@
-import 'dart:developer';
+import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_permission_validator/easy_permission_validator.dart';
 import 'package:ext_storage/ext_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:photo_view/photo_view.dart';
@@ -113,6 +114,7 @@ class _WallpaperPreviewState extends State<WallpaperPreview> {
   }
 
   Future<void> _setWallpaper(int screen) async {
+    var _androidAppRetain = MethodChannel("android_app_retain");
     setState(
       () {
         shouldShowFABLoading = true;
@@ -126,15 +128,29 @@ class _WallpaperPreviewState extends State<WallpaperPreview> {
         screen,
         d.position.dx.floor().abs().toInt(),
         0,
-        (MediaQuery.of(context).size.height * pix).toInt(),
-        (MediaQuery.of(context).size.height * pix).toInt());
+        (MediaQuery
+            .of(context)
+            .size
+            .height * pix).toInt(),
+        (MediaQuery
+            .of(context)
+            .size
+            .height * pix).toInt());
     _scaffoldKey.currentState.showSnackBar(
       SnackBar(
         content: Text(x),
       ),
     );
+    if (x == 'Wallpaper set' && Platform.isAndroid) {
+      Future.delayed(
+        Duration(
+          seconds: 1,
+        ),
+            () => _androidAppRetain.invokeMethod("sendToHome"),
+      );
+    }
     setState(
-      () {
+          () {
         shouldShowFABLoading = false;
       },
     );

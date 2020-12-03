@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:walleye/src/data/blocs/curatedWallpaperBLoc/curated_wallpapers_bloc.dart';
 import 'package:walleye/src/data/blocs/curatedWallpaperBLoc/curated_wallpapers_event.dart';
 import 'package:walleye/src/data/blocs/curatedWallpaperBLoc/curated_wallpapers_state.dart';
@@ -30,13 +29,6 @@ class _CuratedWallpaperScreenState extends State<CuratedWallpaperScreen> {
     final double itemHeight = (size.height) / 2;
     final double itemWidth = (size.width / 2);
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text(
-          'WallEye',
-          style: GoogleFonts.montserrat(fontWeight: FontWeight.bold),
-        ),
-      ),
       body: BlocBuilder(
         cubit: context.bloc<CuratedWallpapersBloc>(),
         builder: (BuildContext context, state) {

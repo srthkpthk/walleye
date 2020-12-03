@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
-import 'package:walleye/src/data/blocs/curatedWallpaperBLoc/curated_wallpapers_bloc.dart';
-import 'package:walleye/src/data/blocs/curatedWallpaperBLoc/curated_wallpapers_event.dart';
-import 'package:walleye/src/data/repository/WallpaperRepository.dart';
-import 'package:walleye/src/ui/curated_wallpaer_home.dart';
+import 'package:walleye/src/ui/Home/wall_eye_home.dart';
 import 'package:walleye/src/util/theme.dart';
 
 Future<void> main() async {
@@ -24,15 +20,7 @@ class App extends StatelessWidget {
       title: 'WallEye',
       theme: ThemeUtils().lightMode,
       darkTheme: ThemeUtils().darkMode,
-      home: RepositoryProvider(
-        create: (BuildContext context) => WallpaperRepository(),
-        child: BlocProvider<CuratedWallpapersBloc>(
-          create: (BuildContext context) => CuratedWallpapersBloc(
-            context.repository<WallpaperRepository>(),
-          )..add(FetchCuratedWallpapers(0)),
-          child: CuratedWallpaperScreen(),
-        ),
-      ),
+      home: WallEyeHome(),
     );
   }
 }
