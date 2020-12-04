@@ -86,7 +86,7 @@ class _WallpaperPreviewState extends State<WallpaperPreview> {
                     leading: Icon(Icons.file_download),
                     onTap: () {
                       Navigator.pop(context);
-                      _downLoadWallpaperBottomSheet(context);
+                      _downloadWallpaperBottomSheet(context);
                     },
                   ),
                 ],
@@ -150,7 +150,7 @@ class _WallpaperPreviewState extends State<WallpaperPreview> {
     );
   }
 
-  void _downLoadWallpaperBottomSheet(BuildContext context) {
+  void _downloadWallpaperBottomSheet(BuildContext context) {
     _scaffoldKey.currentState.showBottomSheet(
       (context) => Padding(
         padding: const EdgeInsets.all(12),
