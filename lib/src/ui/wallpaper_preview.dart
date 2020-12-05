@@ -144,7 +144,7 @@ class _WallpaperPreviewState extends State<WallpaperPreview> {
       );
     }
     setState(
-          () {
+      () {
         shouldShowFABLoading = false;
       },
     );

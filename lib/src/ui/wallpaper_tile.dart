@@ -9,6 +9,7 @@ import 'package:flutter_share/flutter_share.dart';
 import 'package:flutter_share_me/flutter_share_me.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:like_button/like_button.dart';
 import 'package:walleye/src/data/model/photoEntity/photos.dart';
 import 'package:walleye/src/ui/wallpaper_preview.dart';
 
@@ -75,6 +76,17 @@ class WallpaperTile extends StatelessWidget {
                   color: Colors.white,
                 ),
                 onPressed: () => _showShareOptions(context),
+              ),
+            ),
+            Positioned(
+              left: 10,
+              top: 10,
+              child: LikeButton(
+                likeBuilder: (bool) {
+                  return Icon(
+                    Icons.favorite_border,
+                  );
+                },
               ),
             )
           ],

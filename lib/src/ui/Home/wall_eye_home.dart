@@ -26,8 +26,9 @@ class _WallEyeHomeState extends State<WallEyeHome> {
         child: CuratedWallpaperScreen(),
       ),
     ),
+    Text('Search'),
     Text('Categories Screen'),
-    Text('Favourities Screen'),
+    Text('Favourites Screen'),
   ];
 
   @override
@@ -61,15 +62,19 @@ class _WallEyeHomeState extends State<WallEyeHome> {
                   GButton(
                     icon: LineIcons.home,
                     backgroundColor: Colors.grey,
-                    text: 'Curated Wallpapers',
+                    text: 'Curated',
+                  ),
+                  GButton(
+                    icon: LineIcons.search,
+                    text: 'Search',
                   ),
                   GButton(
                     icon: LineIcons.calendar,
-                    text: 'Categories Wallpapers',
+                    text: 'Categories',
                   ),
                   GButton(
                     icon: LineIcons.heart_o,
-                    text: 'Favourites Wallpapers',
+                    text: 'Favourites',
                   ),
                 ],
                 selectedIndex: _selectedIndex,
