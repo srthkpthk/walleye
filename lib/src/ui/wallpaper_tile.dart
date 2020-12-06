@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
@@ -69,19 +70,8 @@ class WallpaperTile extends StatelessWidget {
               ),
             ),
             Positioned(
-              right: 10,
               top: 10,
-              child: IconButton(
-                icon: Icon(
-                  Icons.share,
-                  color: Colors.white,
-                ),
-                onPressed: () => _showShareOptions(context),
-              ),
-            ),
-            Positioned(
               left: 10,
-              top: 10,
               child: FutureBuilder(
                 future: Hive.openBox<Photos>('userBox'),
                 builder: (BuildContext context,
@@ -90,29 +80,62 @@ class WallpaperTile extends StatelessWidget {
                     var photo = snapshot.data.toMap().values.toList();
                     if (photo.contains(_photo)) {
                       return LikeButton(
+                        isLiked: true,
+                        onTap: (isLiked) {
+                          log(
+                            snapshot.data.delete(_photo).toString(),
+                          );
+                          return Future.value(false);
+                        },
                         likeBuilder: (isLiked) => Icon(
                           isLiked ? Icons.favorite : Icons.favorite_border,
                         ),
                       );
                     } else {
                       return LikeButton(
-                        likeBuilder: (isLiked) => Icon(
-                          isLiked ? Icons.favorite : Icons.favorite_border,
-                        ),
+                        onTap: (isLiked) {
+                          log(
+                            snapshot.data.delete(_photo).toString(),
+                          );
+                          log(snapshot.data.values.toList().toString());
+                          return Future.value(true);
+                        },
+                        likeBuilder: (isLiked) =>
+                            Icon(
+                              isLiked ? Icons.favorite : Icons.favorite_border,
+                            ),
                         isLiked: false,
                       );
                     }
                   } else {
                     return LikeButton(
-                      likeBuilder: (isLiked) => Icon(
-                        isLiked ? Icons.favorite : Icons.favorite_border,
-                      ),
+                      onTap: (isLiked) {
+                        log(
+                          snapshot.data.add(_photo).toString(),
+                        );
+                        return Future.value(true);
+                      },
+                      likeBuilder: (isLiked) =>
+                          Icon(
+                            isLiked ? Icons.favorite : Icons.favorite_border,
+                          ),
                       isLiked: false,
                     );
                   }
                 },
               ),
-            )
+            ),
+            Positioned(
+              top: 10,
+              right: 10,
+              child: IconButton(
+                icon: Icon(
+                  Icons.share,
+                  color: Colors.white,
+                ),
+                onPressed: () => _showShareOptions(context),
+              ),
+            ),
           ],
         ),
       ),
