@@ -9,6 +9,7 @@ import 'package:flutter_share/flutter_share.dart';
 import 'package:flutter_share_me/flutter_share_me.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive/hive.dart';
 import 'package:like_button/like_button.dart';
 import 'package:walleye/src/data/model/photoEntity/photos.dart';
 import 'package:walleye/src/ui/wallpaper_preview.dart';
@@ -81,11 +82,34 @@ class WallpaperTile extends StatelessWidget {
             Positioned(
               left: 10,
               top: 10,
-              child: LikeButton(
-                likeBuilder: (bool) {
-                  return Icon(
-                    Icons.favorite_border,
-                  );
+              child: FutureBuilder(
+                future: Hive.openBox<Photos>('userBox'),
+                builder: (BuildContext context,
+                    AsyncSnapshot<Box<Photos>> snapshot) {
+                  if (snapshot.hasData) {
+                    var photo = snapshot.data.toMap().values.toList();
+                    if (photo.contains(_photo)) {
+                      return LikeButton(
+                        likeBuilder: (isLiked) => Icon(
+                          isLiked ? Icons.favorite : Icons.favorite_border,
+                        ),
+                      );
+                    } else {
+                      return LikeButton(
+                        likeBuilder: (isLiked) => Icon(
+                          isLiked ? Icons.favorite : Icons.favorite_border,
+                        ),
+                        isLiked: false,
+                      );
+                    }
+                  } else {
+                    return LikeButton(
+                      likeBuilder: (isLiked) => Icon(
+                        isLiked ? Icons.favorite : Icons.favorite_border,
+                      ),
+                      isLiked: false,
+                    );
+                  }
                 },
               ),
             )

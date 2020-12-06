@@ -195,23 +195,33 @@ class _WallpaperPreviewState extends State<WallpaperPreview> {
   }
 
   Future<void> _downloadWallpaper(String photoUrl) async {
-    await _permissionRequest();
-    final taskId = await FlutterDownloader.enqueue(
-      url: photoUrl,
-      savedDir: await ExtStorage.getExternalStoragePublicDirectory(
-          ExtStorage.DIRECTORY_DOWNLOADS),
-      showNotification: true,
-      openFileFromNotification: true,
-    );
-    _scaffoldKey.currentState.showSnackBar(
-      SnackBar(
-        content: Text(taskId),
-      ),
-    );
+    if (await _permissionRequest()) {
+      final taskId = await FlutterDownloader.enqueue(
+        url: photoUrl,
+        savedDir: await ExtStorage.getExternalStoragePublicDirectory(
+            ExtStorage.DIRECTORY_DOWNLOADS),
+        showNotification: true,
+        openFileFromNotification: true,
+      );
+      _scaffoldKey.currentState.showSnackBar(
+        SnackBar(
+          content: Text(taskId),
+        ),
+      );
+    } else {
+      _scaffoldKey.currentState.showSnackBar(
+        SnackBar(
+          content: Text('Storage Permission is not granted.'),
+        ),
+      );
+    }
   }
 
-  _permissionRequest() async => EasyPermissionValidator(
-        context: context,
-        appName: 'WallEye',
-      );
+  Future<bool> _permissionRequest() async {
+    var permissionValidator = EasyPermissionValidator(
+      context: context,
+      appName: 'WallEye',
+    );
+    return permissionValidator.storage();
+  }
 }
