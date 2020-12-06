@@ -205,7 +205,7 @@ class _WallpaperPreviewState extends State<WallpaperPreview> {
       );
       _scaffoldKey.currentState.showSnackBar(
         SnackBar(
-          content: Text(taskId),
+          content: Text('Wallpaper Downloading ... '),
         ),
       );
     } else {
